@@ -118,6 +118,7 @@ export default {
       this.pageNum = pageNum;
     },
     updateItem: function (item, key, event) {
+      event.currentTarget.blur();
       if (item) {
         item[key] = event.target.innerText;
       }
