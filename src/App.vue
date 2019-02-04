@@ -1,28 +1,38 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png" />
-    <HelloWorld msg="Welcome to Your Vue.js App" />
+    <grid-table :columns="columns" :dataItems="dataItems" :max-items="10" />
   </div>
 </template>
 
 <script>
-import HelloWorld from "./components/HelloWorld.vue";
+import GridTable from './components/GridTable.vue';
+import data from './data/initialData.js';
 
 export default {
-  name: "app",
+  name: 'app',
+  data: function() {
+    return {
+      columns: getColumns(data.titles),
+      dataItems: data.items
+    };
+  },
   components: {
-    HelloWorld
+    GridTable
   }
 };
+
+function getColumns(data) {
+  let columns = [];
+  for (const key in data) {
+    if (data.hasOwnProperty(key)) {
+      columns.push({
+        key,
+        title: data[key]
+      });
+    }
+  }
+  return columns;
+}
 </script>
 
-<style>
-#app {
-  font-family: "Avenir", Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
+<style></style>
