@@ -20,8 +20,9 @@
             v-for="column in columns"
             :key="column.key"
             contenteditable="true"
+            v-on:blur="updateItem(entry, column.key, $event)"
             @keydown.enter.exact.prevent
-            @keyup.enter.exact="updateItem(entry, column.key, $event)"
+            @keyup.enter.exact="blurItem()"
           >
             {{ entry[column.key] }}
           </td>
@@ -118,10 +119,12 @@ export default {
       this.pageNum = pageNum;
     },
     updateItem: function (item, key, event) {
-      event.currentTarget.blur();
       if (item) {
         item[key] = event.target.innerText;
       }
+    },
+    blurItem: function () {
+      event.currentTarget.blur();
     }
   }
 };
